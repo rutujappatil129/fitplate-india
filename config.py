@@ -1,14 +1,20 @@
-"""
-FitPlate India - System Configuration and Constants
-"""
+"""FitPlate India - System Configuration and Constants"""
 import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 FOODS_CSV_PATH = DATA_DIR / "indian_foods.csv"
-DB_PATH = os.getenv("DB_PATH", str(BASE_DIR / "fitplate_india.db"))
-IS_HOSTED = os.getenv("FITPLATE_HOSTED", "false").lower() == "true"
+
+IS_HOSTED = (
+    os.getenv("FITPLATE_HOSTED", "false").lower() == "true"
+    or os.path.isdir("/mount/src")
+    or os.environ.get("HOME") == "/home/appuser"
+)
+DB_PATH = os.getenv(
+    "DB_PATH",
+    "/tmp/fitplate_india.db" if IS_HOSTED else str(BASE_DIR / "fitplate_india.db"),
+)
 
 APP_TITLE = "FitPlate India"
 APP_TAGLINE = "Personalized Indian Diet Planner & Health Analyzer"
@@ -29,7 +35,7 @@ DIET_TYPES = [
     "Eggetarian",
     "Non-Vegetarian",
     "Vegan",
-    "Jain Vegetarian"
+    "Jain Vegetarian",
 ]
 
 REGIONAL_CUISINES = [
@@ -37,7 +43,7 @@ REGIONAL_CUISINES = [
     "North Indian",
     "South Indian",
     "Maharashtrian",
-    "Gujarati"
+    "Gujarati",
 ]
 
 COMMON_ALLERGENS = [
@@ -46,7 +52,7 @@ COMMON_ALLERGENS = [
     "Peanuts / Tree Nuts",
     "Soy",
     "Eggs",
-    "Fish / Seafood"
+    "Fish / Seafood",
 ]
 
 MEAL_SLOTS = [
@@ -55,40 +61,28 @@ MEAL_SLOTS = [
     "Mid-Morning Snack",
     "Lunch",
     "Evening Snack",
-    "Dinner"
+    "Dinner",
 ]
 
-BUDGET_LEVELS = [
-    "Low / Pocket-Friendly",
-    "Medium / Balanced",
-    "Flexible"
-]
-
+BUDGET_LEVELS = ["Low / Pocket-Friendly", "Medium / Balanced", "Flexible"]
 EQUIPMENT_OPTIONS = [
     "None (Bodyweight / Chair)",
     "Resistance Bands",
     "Dumbbells",
-    "Full Gym"
+    "Full Gym",
 ]
-
-FITNESS_LEVELS = [
-    "Beginner",
-    "Intermediate",
-    "Advanced"
-]
-
+FITNESS_LEVELS = ["Beginner", "Intermediate", "Advanced"]
 GOAL_OPTIONS = [
     "Lose Weight",
     "Maintain Weight",
     "Gain Weight / Muscle",
-    "Improve General Fitness"
+    "Improve General Fitness",
 ]
-
 ACTIVITY_LEVELS = [
     "Sedentary (little to no exercise, desk job)",
     "Lightly Active (light exercise 1-3 days/week)",
     "Moderately Active (moderate exercise 3-5 days/week)",
-    "Very Active (hard exercise 6-7 days/week)"
+    "Very Active (hard exercise 6-7 days/week)",
 ]
 
 DISCLAIMER_TEXT = (
