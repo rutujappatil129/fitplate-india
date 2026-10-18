@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: fitplate-india
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.address 0.0.0.0 --server.port $PORT --server.headless true
+    disk:
+      name: fitplate-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DB_PATH
+        value: /var/data/fitplate_india.db
+      - key: FITPLATE_HOSTED
+        value: "true"

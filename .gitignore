@@ -1,0 +1,14 @@
+# Python & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+*.env
+*.db
+*.sqlite3
+.pytest_cache/
+.streamlit/secrets.toml
+.DS_Store
+Thumbs.db
